@@ -9,9 +9,7 @@ This repository contains an implementation of various binary tree operations in 
   - [Functionality](#functionality)
   - [Project Structure](#project-structure)
   - [How to Use](#how-to-use)
-  - [Example](#example)
-  - [Contributing](#contributing)
-  - [License](#license)
+
 
 ## Introduction
 
