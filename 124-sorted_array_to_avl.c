@@ -1,8 +1,47 @@
-#include <stdlib.h>
 #include "binary_trees.h"
 
-avl_t *sorted_array_to_avl_recursive(
-		avl_t *parent, int *array, size_t start, size_t end);
+/**
+ * sorted_array_to_avl_recursive - Recursive helper for AVL conversion.
+ * @array: Pointer to the first element of the array.
+ * @first_idx: Starting index of the subarray.
+ * @final_idx: Ending index of the subarray.
+ *
+ * Return: Pointer to root node of created AVL tree, or NULL on failure.
+ */
+
+avl_t *sorted_array_to_avl_recursive(int *array, int first_idx, int final_idx)
+{
+	avl_t *avl_root;
+	int mid_idx;
+
+	if (final_idx < first_idx)
+	{
+		return (NULL);
+	}
+
+	mid_idx = (final_idx + first_idx) / 2;
+
+	avl_root = binary_tree_node(NULL, array[mid_idx]);
+	if (!avl_root)
+	{
+		return (NULL);
+	}
+
+	avl_root->left = sorted_array_to_avl_recursive(
+			array, first_idx, mid_idx - 1);
+	avl_root->right = sorted_array_to_avl_recursive(
+			array, mid_idx + 1, final_idx);
+
+	if (avl_root->left)
+	{
+		avl_root->left->parent = avl_root;
+	}
+	if (avl_root->right)
+	{
+		avl_root->right->parent = avl_root;
+	}
+	return (avl_root);
+}
 
 /**
  * sorted_array_to_avl - Builds an AVL tree from a sorted array.
@@ -14,61 +53,10 @@ avl_t *sorted_array_to_avl_recursive(
 
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
-	if (size == 0 || array == NULL)
+	if (!array || size < 1)
 	{
 		return (NULL);
 	}
 
-	return (sorted_array_to_avl_recursive(NULL, array, 0, size - 1));
-}
-
-/**
- * sorted_array_to_avl_recursive - Recursive helper for AVL conversion.
- * @parent: Pointer to the parent node.
- * @array: Pointer to the first element of the array.
- * @start: Starting index of the subarray.
- * @end: Ending index of the subarray.
- *
- * Return: Pointer to root node of created AVL tree, or NULL on failure.
- */
-
-avl_t *sorted_array_to_avl_recursive(
-		avl_t *parent, int *array, size_t start, size_t end)
-{
-	size_t mid;
-	avl_t *new_node;
-
-	if (start > end)
-	{
-		return (NULL);
-	}
-
-	mid = (start + end) / 2;
-
-	new_node = binary_tree_node(parent, array[mid]);
-	if (new_node == NULL)
-	{
-		return (NULL);
-	}
-
-	new_node->left = sorted_array_to_avl_recursive(
-			new_node, array, start, mid - 1);
-
-	if (new_node->left == NULL)
-	{
-		free(new_node);
-		return (NULL);
-	}
-
-	new_node->right = sorted_array_to_avl_recursive(
-			new_node, array, mid + 1, end);
-
-	if (new_node->right == NULL)
-	{
-		free(new_node->left);
-		free(new_node);
-		return (NULL);
-	}
-
-	return (new_node);
+	return (sorted_array_to_avl_recursive(array, 0, size - 1));
 }
