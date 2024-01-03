@@ -20,10 +20,59 @@ struct binary_tree_s
 	struct binary_tree_s *right;
 };
 typedef struct binary_tree_s binary_tree_t;
-typedef struct binary_tree_s binary_tree_t;
-typedef struct binary_tree_s bst_t;
-typedef struct binary_tree_s avl_t;
-typedef struct binary_tree_s heap_t;
+
+/**
+ * struct bst_s - Binary Search Tree (BST) node structure
+ * @n: Integer value stored in the node
+ * @left: Pointer to the left child node
+ * @right: Pointer to the right child node
+ * @parent: Pointer to the parent node
+ *
+ */
+
+typedef struct bst_s
+{
+	int n;
+	struct bst_s *left;
+	struct bst_s *right;
+	struct bst_s *parent;
+} bst_t;
+
+/**
+ * struct avl_s - AVL Tree node structure
+ * @n: Integer value stored in the node
+ * @left: Pointer to the left child node
+ * @right: Pointer to the right child node
+ * @parent: Pointer to the parent node
+ * @balance: Balance factor of the node
+ *
+ */
+
+typedef struct avl_s
+{
+	int n;
+	struct avl_s *left;
+	struct avl_s *right;
+	struct avl_s *parent;
+	int balance;
+} avl_t;
+
+/**
+ * struct binary_heap_s - Binary Heap node structure
+ * @n: Integer value stored in the node
+ * @left: Pointer to the left child node
+ * @right: Pointer to the right child node
+ * @parent: Pointer to the parent node
+ *
+ */
+
+typedef struct binary_heap_s
+{
+	int n;
+	struct binary_heap_s *left;
+	struct binary_heap_s *right;
+	struct binary_heap_s *parent;
+} heap_t;
 
 void binary_tree_print(const binary_tree_t *);
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
