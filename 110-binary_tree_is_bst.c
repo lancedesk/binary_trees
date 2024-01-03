@@ -22,8 +22,8 @@ int is_bst_util(const binary_tree_t *tree, int min, int max)
 		return (0);
 	}
 
-	return (is_bst_util(tree->left, min, tree->n) &&
-			is_bst_util(tree->right, tree->n, max));
+	return (is_bst_util(tree->left, min, tree->n - 1) &&
+			is_bst_util(tree->right, tree->n + 1, max));
 }
 
 /**
